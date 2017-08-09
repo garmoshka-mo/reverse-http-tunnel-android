@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -79,8 +80,9 @@ public class TunnelService extends Service {
     };
     @Override
     public void onDestroy() {
-        stop(0); // Вдруг снаружи кто-то сделает stopService
         Log.d(TAG, "onDestroy");
+
+        stop(0); // Вдруг снаружи кто-то сделает stopService
     }
     void stop(int callNumber) {
         Log.d(TAG, "stop "+callNumber);
@@ -118,7 +120,7 @@ public class TunnelService extends Service {
     SharedPreferences prefs;
 
     void tunnel() {
-        Log.d(TAG, "Tunnel service is working");
+        Log.d(TAG, "Tunnel thread ("+Thread.currentThread()+") is working");
         reportState();
 
         localUrlTail=null;
@@ -129,6 +131,7 @@ public class TunnelService extends Service {
         }
 
         reportState();
+        Log.d(TAG, "Tunnel thread ("+Thread.currentThread()+") is stopped");
     }
     void OnePair() {
         int nAttempts=1000;
@@ -308,7 +311,7 @@ public class TunnelService extends Service {
 
                 realBodySize = con.getContentLength(); // Может врать, говорить меньше, чем на самом деле
                 Log.d(TAG, "makeLocalRequest, content length returned by server="+realBodySize);
-                    realBodySize=-1;
+            realBodySize=-1;
 
                 if (realBodySize < 0) realBodySize = maxBodySize;
                 if (realBodySize > maxBodySize) {
@@ -316,7 +319,8 @@ public class TunnelService extends Service {
                             + realBodySize + " bytes, while maximum allowed - " + maxBodySize;
                 } else {
                     DataInputStream in = new DataInputStream(con.getInputStream());
-                    // con.getInputStream() объект класса InputStream, который абстрактный !!!
+                    // con.getInputStream() объект класса InputStream, который в доке назван абстрактным !!!
+                    // InputStream i=con.getInputStream(); Компилятор ест !!!
                     body = new byte[maxBodySize];
                     realBodySize = 0;
                     while (realBodySize<maxBodySize) {

@@ -42,15 +42,29 @@ public class MainActivity extends Activity {
             SettingsActivity.iniPrefs(this); // set defaults
         }
         if (savedInstanceState == null) { // Запуск программы - сразу стартуем сервис
+/*
             tunnelIsWorking=false;
             Intent intent = new Intent(MainActivity.this, TunnelService.class);
             intent.putExtra("Action", "Toggle state");
             startService(intent);
+*/
+            toggleServiceState();
         } else {
             tunnelIsWorking=savedInstanceState.getBoolean("tunnelIsWorking");
+            updateButtonRun(savedInstanceState);
         }
-        updateButtonRun(savedInstanceState);
         registerReceiver(broadcastReceiver, new IntentFilter("gfMessageFromTunnelService"));
+    }
+    void toggleServiceState() {
+        Intent intent = new Intent(MainActivity.this, TunnelService.class);
+        intent.putExtra("Action", "Toggle state");
+        startService(intent);
+
+        Button buttonRun =
+                (Button)findViewById(R.id.buttonRun);
+        buttonRun.setTextColor(Color.rgb(128,128,128));
+        buttonRun.setText(tunnelIsWorking ? "Stopping..." : "Starting...");
+        buttonRun.setClickable(false);
     }
     private OnClickListener buttonRunListener = new
             OnClickListener() {
@@ -62,13 +76,7 @@ public class MainActivity extends Activity {
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     } else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-                    Intent intent = new Intent(MainActivity.this, TunnelService.class);
-                    intent.putExtra("Action", "Toggle state");
-                    startService(intent);
-
-                    ((Button) v).setTextColor(Color.rgb(128,128,128));
-                    ((Button) v).setText(tunnelIsWorking ? "Stopping..." : "Starting...");
-                    v.setClickable(false);
+                    toggleServiceState();
                 }
             };
     private OnClickListener buttonConfigListener = new
