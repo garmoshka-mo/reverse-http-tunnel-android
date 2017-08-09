@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <!-- Это нужно для перехвата фокуса у EditText чтобы не вылезала клавиатура -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server origin"
+        />
+
+    <EditText
+        android:id="@+id/server_origin"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="9dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server timeout, sec"
+        />
+    <EditText
+        android:id="@+id/server_timeout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="9dp"
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local service"
+        />
+    <EditText
+        android:id="@+id/local_service"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="9dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local service timeout, sec"
+        />
+    <EditText
+        android:id="@+id/local_service_timeout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        android:textSize="9dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Device ID"
+        />
+    <EditText
+        android:id="@+id/device_id"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="9dp"
+        />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Save and exit"/>
+
+</LinearLayout>

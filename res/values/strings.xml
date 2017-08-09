@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ReverseHTTPTunnel</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="server_origin">http://104.131.44.48:3000</string>
+    <integer name="server_timeout">30</integer>
+    <string name="local_service">http://localhost:8080</string>
+    <integer name="local_service_timeout">60</integer>
+
+</resources>

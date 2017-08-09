@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gf169.reversehttptunnel"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk tools:overrideLibrary="
+        android.support.compat,
+        android.support.coreui,
+        android.support.coreutils,
+        android.support.mediacompat,
+        android.support.fragment,
+        android.support.constraint,
+        android.support.design,
+        android.support.v7.appcompat,
+        android.support.graphics.drawable,
+        android.support.v7.recyclerview,
+        android.support.test.espresso,
+        android.support.v4"/>
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gf169.reversehttptunnel.MainActivity" />
+        </activity>
+        <service
+            android:name=".TunnelService"
+            android:enabled="true"
+            >
+        </service>
+    </application>
+
+</manifest>
